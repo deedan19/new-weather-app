@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app_forecast/UI/load_screen.dart';
+import 'package:weather_app_forecast/UI/show_error.dart';
 import 'package:weather_app_forecast/bloc/weather_cubit/weather_cubit.dart';
 import 'package:weather_app_forecast/bloc/weather_cubit/weather_state.dart';
 
-import '../Helpers/textStyles.dart';
+import '../../Helpers/textStyles.dart';
 
 class FiveDaysWeatherScreen extends StatelessWidget {
   const FiveDaysWeatherScreen({Key? key}) : super(key: key);
@@ -58,7 +60,7 @@ class FiveDaysWeatherScreen extends StatelessWidget {
                             width: 30.0,
                           ),
                           Text(
-                            '${state.result?[index].main?.temp}º',
+                            '${state.result?[index].main?.temp?.toInt()}º',
                             style: textStyle(
                                 fontWeight: FontWeight.bold,
                                 textSize: 18.0,
@@ -74,31 +76,9 @@ class FiveDaysWeatherScreen extends StatelessWidget {
           );
         }
         if (state is LoadingState) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Loading...',
-                  style: textStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.blueAccent,
-                      textSize: 16.0),
-                ),
-                const CircularProgressIndicator(
-                  color: Colors.blueAccent,
-                ),
-              ],
-            ),
-          );
+          return const LoadingScreen();
         }
-        return Center(
-          child: Text(
-            "Error loading weather data",
-            style: textStyle(
-                fontWeight: FontWeight.w500, color: Colors.red, textSize: 20.0),
-          ),
-        );
+        return const ShowError();
       }),
     );
   }

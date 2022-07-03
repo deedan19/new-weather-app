@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app_forecast/bloc/weather_cubit/weather_cubit.dart';
 import 'package:weather_app_forecast/bloc/weather_cubit/weather_state.dart';
-import '../FiveDaysWeather/five_days_weather.dart';
 import '../Helpers/textStyles.dart';
 import 'package:intl/intl.dart';
+
+import '../UI/FiveDaysWeather/five_days_weather.dart';
+import '../UI/load_screen.dart';
+import '../UI/show_error.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -104,7 +107,7 @@ class HomePage extends StatelessWidget {
                           width: 15.0,
                         ),
                         Text(
-                          '${state.result?[0].main?.temp}º',
+                          '${state.result?[0].main?.temp?.toInt()}º',
                           style: textStyle(
                               fontWeight: FontWeight.bold,
                               textSize: 25.0,
@@ -142,7 +145,7 @@ class HomePage extends StatelessWidget {
                               style: textStyle(
                                   fontWeight: FontWeight.w400,
                                   textSize: 18.0,
-                                  color: Colors.grey),
+                                  color: Colors.blueGrey),
                             ),
                             const SizedBox(
                               width: 15.0,
@@ -161,7 +164,7 @@ class HomePage extends StatelessWidget {
                                 style: textStyle(
                                     fontWeight: FontWeight.w400,
                                     textSize: 18.0,
-                                    color: Colors.grey),
+                                    color: Colors.blueGrey),
                               ),
                             )
                           ],
@@ -215,7 +218,7 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '${state.result?[index].main?.temp}º',
+                                          '${state.result?[index].main?.temp?.toInt()}º',
                                           style: textStyle(
                                               fontWeight: FontWeight.normal,
                                               textSize: 15.0,
@@ -235,49 +238,9 @@ class HomePage extends StatelessWidget {
             );
           }
           if (state is LoadingState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Loading...',
-                    style: textStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        textSize: 16.0),
-                  ),
-                  const CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            );
+            return const LoadingScreen();
           }
-          return Scaffold(
-              body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(
-                  Icons.error_outline,
-                  size: 40.0,
-                  color: Colors.red,
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  "Error loading weather data",
-                  style: textStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.red,
-                      textSize: 20.0),
-                ),
-              ],
-            ),
-          ));
+          return const ShowError();
         }),
       ),
     );
