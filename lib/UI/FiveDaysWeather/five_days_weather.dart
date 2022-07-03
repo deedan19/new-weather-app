@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app_forecast/Helpers/formatter.dart';
 import 'package:weather_app_forecast/UI/load_screen.dart';
 import 'package:weather_app_forecast/UI/show_error.dart';
 import 'package:weather_app_forecast/bloc/weather_cubit/weather_cubit.dart';
@@ -37,10 +38,12 @@ class FiveDaysWeatherScreen extends StatelessWidget {
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ListTile(
-                      title: const Text(
-                        'Mondays',
-                        style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.w400),
+                      title: Text(
+                        Formatter.formatDay('${state.result?[index].dtTxt}'),
+                        style: textStyle(
+                            textSize: 18.0,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black54),
                       ),
                       trailing: Wrap(
                         children: [

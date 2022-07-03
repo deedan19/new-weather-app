@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app_forecast/Helpers/formatter.dart';
 import 'package:weather_app_forecast/bloc/weather_cubit/weather_cubit.dart';
 import 'package:weather_app_forecast/bloc/weather_cubit/weather_state.dart';
 import '../Helpers/textStyles.dart';
@@ -14,12 +15,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateTime now = DateTime.now();
-    final String formattedDate = DateFormat('EEE d MMM').format(now);
-
-    String timeInTheDay(String timeInDay) {
-      return timeInDay;
-    }
+    final String formattedDate = DateFormat('EEE d MMM').format(
+      DateTime.now(),
+    );
 
     return Container(
       decoration: const BoxDecoration(
@@ -201,7 +199,8 @@ class HomePage extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          '9AM',
+                                          Formatter.formatTimeOfDay(
+                                              '${state.result?[index].dtTxt}'),
                                           style: textStyle(
                                               fontWeight: FontWeight.normal,
                                               textSize: 15.0,

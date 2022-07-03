@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       create: (_) => WeatherResponseCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Weather Forecast',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

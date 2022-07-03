@@ -6,8 +6,6 @@ class DataService {
     const url =
         'https://api.openweathermap.org/data/2.5/forecast?lat=6.465422&lon=3.406448&cnt=5&appid=435993cb111961cf1411bdf830d30556&units=metric';
     final response = await Dio().get(url);
-
-    print('Body response::::: ${response.data}');
     final responseObject = WeatherModel.fromJson(response.data);
     return responseObject.list ?? [];
   }
