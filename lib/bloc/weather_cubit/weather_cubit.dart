@@ -11,8 +11,8 @@ class WeatherResponseCubit extends Cubit<WeatherResponseState> {
 
   Future<void> getWeather() async {
     try {
-      final pokemon = await repository.getWeather();
-      emit(SuccessState(pokemon));
+      final weather = await repository.getWeather();
+      emit(SuccessState(weather));
     } catch (e) {
       emit(FailureState());
     }
